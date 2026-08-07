@@ -1,21 +1,18 @@
 class Solution(object):
     def setZeroes(self, matrix):
-        ans = []
+        seen_row = set()
+        seen_col = set()
         m,n = len(matrix), len(matrix[0])
         for i in range(m):
             for j in range(n):
                 if matrix[i][j] == 0:
-                    ans.append([i,j])
-        i = 0
-        while (i != len(ans)):
-            zero = ans[i]
-            row = zero[0]
-            col = zero[1]
-            for r in range(m):
-                matrix[r][col] = 0
-            
-            for c in range(n):
-                matrix[row][c] = 0
-            i += 1
+                    seen_row.add(i)
+                    seen_col.add(j)
+
+
+        for i in range(m):
+            for j in range(n):
+                if i in seen_row or j in seen_col:
+                    matrix[i][j] = 0
 
         return matrix
