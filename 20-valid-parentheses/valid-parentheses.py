@@ -1,21 +1,17 @@
 class Solution(object):
     def isValid(self, s):
-        if len(s) == 1:
-            return False
-        bracket = {
-            ')' : '(',
+        brace ={
             '}' : '{',
+            ')' : '(',
             ']' : '['
         }
         stack = []
-        i = 0
-        while(i != len(s)):
-            if s[i] in bracket.values():
-                stack.append(s[i])
-                i += 1
-            elif not stack or bracket[s[i]] != stack[-1]:
-                return False
-            else:
+        for c in s:
+            if c in brace:
+                if not stack or stack[-1] != brace[c]:
+                    return False
                 stack.pop()
-                i += 1
-        return len(stack) == 0
+            else:
+                stack.append(c)
+        return not stack
+                
