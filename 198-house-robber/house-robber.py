@@ -1,17 +1,9 @@
 class Solution(object):
     def rob(self, nums):
-        n = len(nums)
-        prev2 = 0
-        prev1 = 0
-
-        for i in range(n):
-            take = prev2 + nums[i]
-            skip = prev1
-
-            current = max(take , skip)
-
-            prev2 = prev1
-            prev1 = current
-
-        return current
-        
+        if len(nums) < 2:
+            return max(nums)
+        prev1 = max(nums[0], nums[1])
+        prev2 = nums[0]
+        for i in range(2, len(nums)):
+            prev2, prev1 = prev1, max(prev1, prev2 + nums[i])
+        return prev1
